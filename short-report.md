@@ -17,16 +17,24 @@ There are 3 different Claude.md
 - `CLAUDE.local.md` — personal project settings
 
 
+
+
 ### Slash Commands
 Built-in: `/init`, `/compact`, `/clear` ...
 
 Custom: you create: `.claude/commands/<name>.md` and it becomes `/<name>` cpmmand
 
 
+
+
+
 ### MCP Servers
 Connecting external tools to improve Claude Code
 
 Examples: Playwright (for browser)
+
+
+
 
 
 ### Hooks
@@ -38,7 +46,8 @@ Scripts that run automatically before or after Claude uses any tool
 `@anthropic-ai/claude-code` — run Claude Code programmatically from scripts,
 CI/CD pipelines, or other hooks.
 
----
+
+
 
 ## Hook Exit Codes
 
@@ -49,9 +58,9 @@ CI/CD pipelines, or other hooks.
 
 
 
+---
 
-
-## Some Commands
+## Some Basic Commands
 
 ```bash
 # install
@@ -97,13 +106,13 @@ tsc --noEmit
 ---
 
 ## Basic SetUp
-- [ ] `CLAUDE.md` is initialized and manually reviewed for project-specific rules.
-- [ ] `CLAUDE.local.md` is created for personal environment settings.
-- [ ] `.claude/settings.local.json` contains `PreToolUse` hooks for sensitive file protection.
-- [ ] `hooks/query_hook.js` is implemented and tested to prevent logic duplication.
-- [ ] GitHub App is installed with `API_KEY` stored in repository secrets.
-- [ ] All debug log hooks are disabled or removed for daily use.
-- [ ] Claude Code has to be **restarted** to apply all configuration changes, (after every major change)
+- `CLAUDE.md` is initialized and manually reviewed for project-specific rules.
+-  `CLAUDE.local.md` is created for personal environment settings.
+-  `.claude/settings.local.json` contains `PreToolUse` hooks for sensitive file protection.
+-  `hooks/query_hook.js` is implemented and tested to prevent logic duplication.
+-  GitHub App is installed with `API_KEY` stored in repository secrets.
+-  All debug log hooks are disabled or removed for daily use.
+-  Claude Code has to be **restarted** to apply all configuration changes, (after every major change)
 
 
 
@@ -135,22 +144,27 @@ Claude Code operates along two axes:
 1. **Planning Mode (`Shift + Tab`):** Used for **breadth**. Claude creates a step-by-step plan and asks for approval before modifying files. Best for refactors across multiple files.
 2. **Thinking Mode:** Used for **depth**. Use sertain keywords like `think`, `think longer`, or `ultrathink` to force the AI to look deeper into complicated logic or bugs.
 
+
 * **`/compact`**: This summarizes your current chat to save space in the AI's memory while keeping the important project details
 * **`/clear`**: This completely wipes the current chat history so you can start a new task
 * **Memory (`#`)**: If you put a hashtag at the start of a line, you can add notes for the AI to remember
 * **File References (`@`)**: Point Claude to specific files or folders you want it to look at
+
 
 There are three levels of instruction files:
 1. `~/.claude/CLAUDE.md`: Global rules for all projects.
 2. `./CLAUDE.md`: Project-specific rules shared with the team via Git.
 3. `./CLAUDE.local.md`: Personal local settings (git-ignored).
 
+
 You can create your own shortcuts by adding `.md` files to `.claude/commands/`.
 * Example: `/audit` (runs security checks) or `/write_tests` (uses `$ARGUMENTS` to generate tests)
+
 
 The MCP connects Claude to external tools.
 * Example (Playwright): `claude mcp add playwright npx @playwright/mcp@latest`.
 * This allows Claude to open a real browser, navigate to your app, and perform UI/E2E testing
+
 
 Use `/install-github-app` to integrate Claude into your CI/CD workflow.
 * Claude can respond to Issues and PRs with `@claude` mentions
@@ -169,11 +183,13 @@ Hooks allow you to run scripts automatically based on Claude's tool usage
 * **PostToolUse:** This runs after Claude finishes a task. It is great for automatic tasks, like fixing code formatting or checking for errors
 * **Query Hook:** The "AI Reviewing AI" pattern. A hook uses the SDK to ask a second Claude instance if a proposed change duplicates existing logic
 
+
 The `@anthropic-ai/claude-code` library allows for programmatic usage
 * **Important:** SDK access is read-only by default. You must give it write permissions:
   `options: { allowedTools: ["Edit", "Write"] }`
 * **Message Types:** While it works, it sends back different types of messages, like what it's thinking, what tool it's using, and the final result
     Streams `assistant` (thought), `tool_use`/`tool_result`, and final `result` messages
+
 
 * **Type Safety:** Always run `tsc --noEmit` after Claude makes changes and feed any errors back to the assistant
 * **Sprecific Writing:** Don't give vague instructions. Tell Claude exactly what to do, where the files are, and what rules to follow
