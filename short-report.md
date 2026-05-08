@@ -4,11 +4,10 @@
 > Course link: claudecertifications.com/courses/claude-code-in-action
 
 ---
-# For batter information go to modules and notes taken these for every single lesson
+# For better information go to folder(modules) and look at notes taken there(for every single lesson)
 
 ---
 
-## Short Key Points
 
 ### CLAUDE.md
 There are 3 different Claude.md
@@ -20,11 +19,13 @@ There are 3 different Claude.md
 
 ### Slash Commands
 Built-in: `/init`, `/compact`, `/clear` ...
+
 Custom: you create: `.claude/commands/<name>.md` and it becomes `/<name>` cpmmand
 
 
 ### MCP Servers
 Connecting external tools to improve Claude Code
+
 Examples: Playwright (for browser)
 
 
